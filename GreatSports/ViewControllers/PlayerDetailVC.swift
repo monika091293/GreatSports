@@ -30,7 +30,6 @@ class PlayerDetailVC: UIViewController {
     @IBOutlet weak var infoStack: UIStackView!
     @IBOutlet weak var infoCv: UICollectionView!
     @IBOutlet weak var heightConstrain: NSLayoutConstraint!
-    
     @IBOutlet weak var imageBG: UIView!
     
     
@@ -54,7 +53,7 @@ class PlayerDetailVC: UIViewController {
     
     func callPlayerDetail(){
         self.addLoader()
-        if let slugname = player?.name ?? "" as? String , slugname != ""{
+        if let slugname = player?.slug ?? "" as? String , slugname != ""{
             NetworkManager.shared.dataTask(serviceURL: Enpoint.player_detail.rawValue, httpMethod: .post, parameters: ["slug":slugname]) { (response, error) in
                 do{
                     if response != nil {
@@ -84,6 +83,7 @@ class PlayerDetailVC: UIViewController {
             }
         }
     }
+    
    func updateView(){
        if let url = URL(string: self.playersdetail?.playerDat?.player_photo ?? ""){
            self.imagePlayer?.sd_setImage(with: url)
@@ -188,7 +188,8 @@ extension PlayerDetailVC: UITableViewDelegate,UITableViewDataSource{
         
         switch indexPath.section {
         case 0:
-            if let cell = playerDetailTV.dequeueReusableCell(withIdentifier: "PlayerDetailTVCell", for: indexPath) as? PlayerDetailTVCell{
+            if let cell = playerDetailTV.dequeueReusableCell(withIdentifier: "PlayerDetailTVCell", for: indexPath) as? PlayerDetailTVCell
+            {
                 cell.about.isHidden = false
                 cell.detail.text = self.playersdetail?.playerDat?.indicators?[indexPath.row].key
                 cell.descriptionL.text = self.playersdetail?.playerDat?.indicators?[indexPath.row].value
@@ -208,7 +209,8 @@ extension PlayerDetailVC: UITableViewDelegate,UITableViewDataSource{
                 return cell
             }
         default:
-            if let cell = playerDetailTV.dequeueReusableCell(withIdentifier: "PlayerDetailTVCell", for: indexPath) as? PlayerDetailTVCell{
+            if let cell = playerDetailTV.dequeueReusableCell(withIdentifier: "PlayerDetailTVCell", for: indexPath) as? PlayerDetailTVCell
+            {
                 cell.heightConstarin.constant = 0
                 cell.about.isHidden = true
                 cell.detail.text = self.playersdetail?.playerDat?.rating?[indexPath.row].key
@@ -235,12 +237,12 @@ extension PlayerDetailVC :UICollectionViewDelegate,UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = infoCv.dequeueReusableCell(withReuseIdentifier: "InfoCVCell", for: indexPath) as? InfoCVCell{
-            
+        if let cell = infoCv.dequeueReusableCell(withReuseIdentifier: "InfoCVCell", for: indexPath) as? InfoCVCell
+        {
+
             cell.infoicon.layer.cornerRadius = 5.0
             cell.contentView.addShadow()
             cell.infoLabel.text = infoTitle[indexPath.row]
-            
             return cell
         }
         
