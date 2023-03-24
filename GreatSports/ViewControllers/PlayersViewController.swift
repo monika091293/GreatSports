@@ -25,22 +25,8 @@ class PlayersViewController: UIViewController {
     }
     
     func setupView(){
-        let navBar = self.navigationController!.navigationBar
-
-        let standardAppearance = UINavigationBarAppearance()
-        standardAppearance.configureWithOpaqueBackground()
-        standardAppearance.backgroundColor = hexStringToUIColor(hex: "#DF4F53")
-
-        let compactAppearance = standardAppearance.copy()
-        standardAppearance.backgroundColor = hexStringToUIColor(hex: "#DF4F53")
-
-        navBar.standardAppearance = standardAppearance
-        navBar.scrollEdgeAppearance = standardAppearance
-        navBar.compactAppearance = compactAppearance
-        if #available(iOS 15.0, *) { // For compatibility with earlier iOS.
-            navBar.compactScrollEdgeAppearance = compactAppearance
-        }
-        
+       
+        setNavBar()
         collectionViewPlayer.delegate = self
         collectionViewPlayer.dataSource = self
         playerTV.delegate = self
@@ -48,7 +34,24 @@ class PlayersViewController: UIViewController {
         playerTV.estimatedRowHeight = 70
         playerTV.rowHeight = UITableView.automaticDimension
         callPlayerApi()
-       
+    }
+    
+    func setNavBar(){
+        let navBar = self.navigationController!.navigationBar
+
+        let standardAppearance = UINavigationBarAppearance()
+        standardAppearance.configureWithOpaqueBackground()
+        standardAppearance.backgroundColor = hexStringToUIColor(hex: "#DF5053")
+
+        let compactAppearance = standardAppearance.copy()
+        standardAppearance.backgroundColor = hexStringToUIColor(hex: "#DF5053")
+
+        navBar.standardAppearance = standardAppearance
+        navBar.scrollEdgeAppearance = standardAppearance
+        navBar.compactAppearance = compactAppearance
+        if #available(iOS 15.0, *) { // For compatibility with earlier iOS.
+            navBar.compactScrollEdgeAppearance = compactAppearance
+        }
     }
     
     
@@ -128,7 +131,7 @@ extension PlayersViewController: UITableViewDelegate,UITableViewDataSource{
         return players?.pdata?.count ?? 0
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125.0
+        return 115.0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = playerTV.dequeueReusableCell(withIdentifier: "PlayerTVCell", for: indexPath) as? PlayerTVCell{
@@ -163,6 +166,7 @@ extension PlayersViewController: UITableViewDelegate,UITableViewDataSource{
         let currentCell = playerTV.cellForRow(at: indexpath) as? PlayerTVCell
         let currentCellText = players?.pdata?[selectedRow]
         let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "PlayerDetailVC") as? PlayerDetailVC
+        print("currentCellText",currentCellText)
         detailsVC?.player = currentCellText
         self.navigationController?.pushViewController(detailsVC ?? PlayerDetailVC(), animated: true)
     }

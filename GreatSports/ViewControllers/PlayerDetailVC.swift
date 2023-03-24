@@ -31,7 +31,8 @@ class PlayerDetailVC: UIViewController {
     @IBOutlet weak var infoCv: UICollectionView!
     @IBOutlet weak var heightConstrain: NSLayoutConstraint!
     
-  
+    @IBOutlet weak var imageBG: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +46,15 @@ class PlayerDetailVC: UIViewController {
         self.playerDetailTV.dataSource = self
         self.playerDetailTV.estimatedRowHeight = 70
         playerDetailTV.rowHeight = UITableView.automaticDimension
-       playerDetailTV.translatesAutoresizingMaskIntoConstraints = true
+        playerDetailTV.translatesAutoresizingMaskIntoConstraints = true
+        self.imageBG.addShadow()
         callPlayerDetail()
     }
    
     
     func callPlayerDetail(){
         self.addLoader()
-        if let slugname = player?.slug ?? "" as? String , slugname != ""{
+        if let slugname = player?.name ?? "" as? String , slugname != ""{
             NetworkManager.shared.dataTask(serviceURL: Enpoint.player_detail.rawValue, httpMethod: .post, parameters: ["slug":slugname]) { (response, error) in
                 do{
                     if response != nil {
@@ -85,6 +87,7 @@ class PlayerDetailVC: UIViewController {
    func updateView(){
        if let url = URL(string: self.playersdetail?.playerDat?.player_photo ?? ""){
            self.imagePlayer?.sd_setImage(with: url)
+           self.imageBG.addShadow()
        }
        self.name?.text = self.playersdetail?.playerDat?.player_name
        self.team?.text = self.playersdetail?.playerDat?.player_country
@@ -173,8 +176,8 @@ extension PlayerDetailVC: UITableViewDelegate,UITableViewDataSource{
         sectionHeaderLabel.text = sectionHeaderTitles[section]
         sectionHeaderLabel.textAlignment = .center
         sectionHeaderLabel.textColor = hexStringToUIColor(hex: "#DE253A")
-        sectionHeaderLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
-        sectionHeaderLabel.frame = CGRect(x: 43, y: 5, width: 250, height: 40)
+        sectionHeaderLabel.font = UIFont.systemFont(ofSize: 25.0)
+        sectionHeaderLabel.frame = CGRect(x: self.imagePlayer.frame.midX, y: 5, width: 250, height: 40)
         sectionHeaderLabelView.addSubview(sectionHeaderLabel)
 
         return sectionHeaderLabelView

@@ -19,8 +19,6 @@ enum Enpoint : String{
 }
 
 let BaseURL : String = "https://ios.app99877.com/api/sc/"
-//players
-//"http://dummy.restapiexample.com/api/v1/"
 
 class NetworkManager {
     

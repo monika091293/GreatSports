@@ -105,7 +105,6 @@
 		1D3C57C029C9E88700EDFF0D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1D3C57DE29CAC27100EDFF0D /* cell */,
 				1D3C57C129C9E8AC00EDFF0D /* PlayersViewController.swift */,
 				1D3C57E529CB438700EDFF0D /* PlayerDetailVC.swift */,
 			);
@@ -162,6 +161,14 @@
 			path = playerdetails;
 			sourceTree = "<group>";
 		};
+		1D3C580029CE1D9200EDFF0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D3C57DE29CAC27100EDFF0D /* cell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1D80106D29C9D65B00970B71 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +190,7 @@
 		1D80107829C9D65B00970B71 /* GreatSports */ = {
 			isa = PBXGroup;
 			children = (
+				1D3C580029CE1D9200EDFF0D /* Views */,
 				1D80107929C9D65B00970B71 /* AppDelegate.swift */,
 				1D80107B29C9D65B00970B71 /* SceneDelegate.swift */,
 				1D80107D29C9D65B00970B71 /* ViewController.swift */,
